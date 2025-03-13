@@ -38,7 +38,6 @@ header {
 nav ul {
     display: flex;
     list-style: none;
-    padding: 1px;
 }
 
 nav ul li {
