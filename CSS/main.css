@@ -52,6 +52,10 @@ nav ul li a {
     text-decoration: none;
     transition: color 0.3s;
 }
+.mailto {
+    color: var(--accent-color);
+    text-decoration: none;
+}
 
 nav ul li a:hover {
     color: var(--accent-color);
