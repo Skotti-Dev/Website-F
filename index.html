@@ -1,69 +1,460 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>skotti</title>
-    <link rel="stylesheet" type="text/css" href="CSS/main.css">
+    <title>Skotti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1a1d28;
+            --bg-secondary: #252837;
+            --bg-card: #2d3142;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b9c5;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --border: #3d4152;
+        }
+
+        body.light-mode {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #1a1d28;
+            --text-secondary: #6b7280;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .hero {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+          .avatar-img {
+            width: 100%;
+            height: 100%;
+            background-image: url('./Fole/profile-pic.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .interests {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .interest-item {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .interest-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .contact-item span {
+            font-size: 1.5rem;
+        }
+
+        .contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">skotti</div>
+            <div class="nav-links">
+                <a href="#about" class="active">O mnie</a>
+                <a href="#projects">Projekty</a>
+                <a href="#contact">Kontakt</a>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                    ☀️
+                </button>
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
-        <header>
-            <a href="#" class="logo">skotti</a>
-            <nav>
-                <ul>
-                    <li class="AboutMe"><a href="#about">O mnie</a></li>
-                    <li><a href="#contact">Projekty</a></li>
-                    <li><a href="#projects">Kontakt</a></li>
-                </ul>
-            </nav>
-            <button class="theme-toggle">☀️</button>
-        </header>
-        
         <section class="hero">
-            <div class="profile-image">
-                <img src="Fole/profile-pic.png" alt="Profile Image">
+            <div class="avatar">
+                <div class="avatar-img"></div>
             </div>
             <div class="hero-content">
-                <h1>Hej</h1>
-                <p>Jestem <strong>Skotti</strong>, początkujący <span class="italic">(deweloper)</span> pracujący na różnych językach takich jak JS, C#, SQL czy Python <span class="italic">(też zajmuję się sieciami i serwerami)</span>.</p>
-                <a href="#contact" class="contact-link">Kontakt</a>
+                <h1>Portfolio</h1>
+                <p>Jestem <strong>Skotti</strong>, Junior Developerem pracującym na różnych językach takich jak <b>JS, C#, SQL czy Python</b> (też zajmuję się sieciami i serwerami).</p>
+                <a href="#contact" class="btn">Kontakt</a>
             </div>
         </section>
-        
-        <section id="about" class="section">
-            <h2>O mnie 🤓</h2>
-            <p>Od młodych lat interesuję się technologią. Na ten moment zajmuję się lekkim programowaniem <span class="italic">(JS/TS, React, Java Spring)</span>, ale również świętnie pasuję mi praca ze sprzętem komputerowym, czy korzystanie z LLM <span class="italic">(Testowanie sprzętu komputerowego i sieciowego, Ollama)</span>.</p>
-            <p>Na codzień korzystam z Fedory, w między czasie optymalizuję workflow na Archu.</p>
-            <p>Uwielbiam pić kawę ☕, słuchać Katy Perry i ćwiczyć na siłowni.</p>
-            <p>Możliwe, że w przyszłości będę zajmował się elektrotechniką🤫.</p>
+
+        <section id="about">
+            <h2>O mnie 👋</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Od młodych lat interesuję się technologią. Na tą moment zajmuję się lekkim programowaniem sprawdzając nowe technologie
+                        <b>(JS/TS, React, Java Spring)</b>, ale również świętnie się czuję przy pracy ze sprzętem komputerowym. 
+                    czy korzystanie z <b>LLM (CLI, Ollama, AI Automation)</b>.</p>
+                    <p>Na codzień korzystam z dystrybucji Fedory, w między czasie optymalizuję workflow na Archu.
+                        <br>Równiez pracuję z programami graficznymi od Affinity.</br>
+                    <br>Od pewnego czasu tworze modele w Blenderze.</br></p>
+                </div>
+                <div class="interests">
+                    <div class="interest-item">
+                        <div class="interest-icon">☕</div>
+                        <div>Uwielbiam pić kawę</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">🎵</div>
+                        <div>Słuchać Muzyki</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">🏋️</div>
+                        <div>Ćwiczyć na siłowni</div>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">💡</div>
+                        <div>Możliwe, że w przyszłości będę zajmował się elektrotechniką⚡</div>
+                    </div>
+                </div>
+            </div>
         </section>
-        
-        <section id="projects" class="section">
+
+        <section id="projects">
             <h2>Projekty 🚀</h2>
-            <p>Kilka rzeczy nad którymi pracuję/zajmuję się:</p>
-            <ul>
-                <li>Projekt 1 - Stworzyłem wydajny i lekki workflow oparty na Hyprlandzie.</li>
-                <li>Projekt 2 - Tworzę Homelab do testowania, nauki i usprawniania swojej pracy.</li>
-                <li>Projekt 3 - Własne Portfolio <span class="italic">(jak te!)</span></li>
-            </ul>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Arch i HyprLand Workflow</h3>
+                    <p>Stworzyłem wydajny i lekki workflow oparty na <b>Hyprland</b>. Który przyśpiesza moją prace <b>3'krotnie</b> szybciej.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Prywatny HomeLab</h3>
+                    <p>Tworzę zoptymalizowany HomeLab, do wykorzystwania prywatnie gigantycznych <b>modeli LLM</b> oraz posiadnia własnej <b>chmury</b>. </p>
+                </div>
+                <div class="project-card">
+                    <h3>Grafika 2D i 3D</h3>
+                    <p>Zainteresowałem się tworzeniem grafiki wektrowej, rastrowej i trójwymiarowej. <b>Grafikę 2D tworzę w Affinity, a proces tworzenia grafiki 3D w Blenderze</b>.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Automatyzacja AI</h3>
+                    <p>W wolnym czasie, szukam najwydajniejszych automatyzaji do prowadzenia social mediów, jakie są nowe trendy, czy <b>Agent Sztucznej Inteligencji</b>do rozmowy z klientami.</p>
+                </div>
+            </div>
         </section>
-        
-        <section id="contact" class="section">
-            <h2>Kontakt 📩</h2>
-            <p>Kontakt do mnie, jeśli chcesz podjąc ze mną współpracę lub po prostu porozmawiać:</p>
-            <ul>
-                <li>Email: <a class="mailto" href="mailto:maciejw600@gmail.com">maciejw600@gmail.com</a></li>
-                <li>Discord: <a href="https://discordapp.com/users/396662581999173632" class="contact-link">skotti_</a></li>
-                <li>Telegram: <a href="https://t.me/@mSkotti" class="contact-link">@mSkotti</a></li>
-            </ul>
+
+        <section id="contact">
+            <h2>Kontakt 📧</h2>
+            <p>Poniżej znajdują się opcje skontaktowania ze mną 👇</p>
+            <div class="contact-methods">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <div>Email: <a href="mailto:maciejw600@gmail.com">maciejw600@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <span>💬</span>
+                    <div>Discord: <a href="#">skotti_</a></div>
+                </div>
+                <div class="contact-item">
+                    <span>✈️</span>
+                    <div>Telegram: <a href="#">@mSkotti</a></div>
+                </div>
+                <div class="contact-item">
+                    <span>💎</span>
+                    <div>LinkedIn: <a href="https://www.linkedin.com/in/maciej-flor-02656833b/" target="_blank">Maciej Flor</a></div>
+                </div>
+            </div>
         </section>
-        
-        <footer>
-            <p>© 2025 skotti. All rights reserved.</p>
-        </footer>
     </div>
 
-    <script src="JS/main.js"></script>
+    <footer>
+        <p>© 2025 skotti. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
