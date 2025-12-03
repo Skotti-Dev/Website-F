@@ -393,7 +393,7 @@
     </footer>
 
     <script>
-        // Theme toggle functionality
+       
         function toggleTheme() {
             const body = document.body;
             const themeToggle = document.getElementById('themeToggle');
@@ -409,7 +409,7 @@
             }
         }
 
-        // Load saved theme
+    
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
             const themeToggle = document.getElementById('themeToggle');
@@ -434,7 +434,7 @@
             });
         });
 
-        // Update active nav link on scroll
+      
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
